@@ -1,0 +1,58 @@
+body {
+    background-color: #F7DECE; 
+    color: #2D2E2C; 
+}
+
+.navbar {
+    background-color: #9EC4BB; 
+}
+
+.navbar a {
+    color: #2D2E2C !important; 
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.form-control {
+    border: 1px solid #CCCCBB; 
+}
+
+.form-group label {
+    color: #2D2E2C; 
+}
+
+.btn-primary {
+    background-color: #EED7C5; 
+    border-color: #EED7C5; 
+}
+
+.btn-primary:hover {
+    background-color: #9EC4BB; 
+    border-color: #9EC4BB; 
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    background-color: #FFFFFF; 
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #2D2E2C; 
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    background-color: #2D2E2C;
+    color: #FFFFFF;
+    padding: 20px;
+    margin-top: 50px;
+}

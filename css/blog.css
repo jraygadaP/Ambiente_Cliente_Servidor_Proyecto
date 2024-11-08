@@ -1,0 +1,64 @@
+body {
+    background-color: #F7DECE;
+    color: #2D2E2C;
+}
+
+.blog-title {
+    color: #9EC4BB;
+}
+
+.blog-card {
+    background-color: #EED7C5;
+    border: none;
+    margin-bottom: 20px;
+    height: 100%;
+}
+
+.btn-read {
+    background-color: #CCCCBB;
+    color: #2D2E2C;
+}
+
+.btn-read:hover {
+    background-color: #9EC4BB;
+    color: white;
+}
+
+
+.card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#reviewList {
+    margin-top: 20px;
+    background-color: #F7DECE;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.btn-submit {
+    background-color: #9EC4BB; 
+    color: #2D2E2C; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.card-img-top {
+    height: 200px; 
+    object-fit: cover; 
+    width: 100%; 
+    border-top-left-radius: 8px; 
+    border-top-right-radius: 8px; 
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
