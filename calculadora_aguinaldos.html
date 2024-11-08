@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Aguinaldos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F7DECE;
+            color: #2D2E2C;
+        }
+        .navbar {
+            background-color: #9EC4BB;
+        }
+        .navbar a {
+            color: #2D2E2C !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-control {
+            border: 1px solid #CCCCBB;
+            margin-bottom: 15px;
+        }
+        .btn-calculate {
+            background-color: #9EC4BB;
+            color: #2D2E2C;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .btn-calculate:hover {
+            background-color: #EED7C5;
+        }
+        .result-card {
+            display: none;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            background-color: #2D2E2C;
+            color: #FFFFFF;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        h2 {
+            color: #2D2E2C;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .info-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand mx-auto" href="#">El Financiero</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos <span class="sr-only">(actual)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Comparación de Préstamos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admisnistración de Presupuestos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contactenos.html">Contáctenos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="position: relative;">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge badge-danger" style="position: absolute; top: -5px; right: -10px;">3</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Contenido Principal -->
+<div class="container">
+    <div class="card">
+        <h2>Calculadora de Aguinaldo</h2>
+        <form id="aguinaldoForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Salario Mensual Base:</label>
+                        <input type="number" class="form-control" id="salarioBase" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Meses Trabajados:</label>
+                        <input type="number" class="form-control" id="mesesTrabajados" max="12" min="1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Extras y Comisiones (opcional):</label>
+                <input type="number" class="form-control" id="extras" value="0">
+            </div>
+            <button type="submit" class="btn-calculate">Calcular Aguinaldo</button>
+        </form>
+
+        <div class="card result-card" id="resultCard">
+            <h4 class="text-center">Resultado del Cálculo</h4>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <p><strong>Aguinaldo Bruto:</strong> ₡<span id="aguinaldoBruto">0</span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Aguinaldo Proporcional:</strong> ₡<span id="aguinaldoProporcional">0</span></p>
+                </div>
+            </div>
+        </div>
+
+        <p class="info-text">
+            * El aguinaldo en Costa Rica corresponde al pago adicional de un mes de salario, calculado como el promedio de los salarios ordinarios y extraordinarios recibidos durante el último año.
+        </p>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 El Financiero. Todos los derechos reservados.</p>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('aguinaldoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const salarioBase = parseFloat(document.getElementById('salarioBase').value);
+        const mesesTrabajados = parseFloat(document.getElementById('mesesTrabajados').value);
+        const extras = parseFloat(document.getElementById('extras').value) || 0;
+
+        const salarioTotal = salarioBase + extras;
+        const aguinaldoBruto = salarioTotal;
+        const aguinaldoProporcional = (aguinaldoBruto / 12) * mesesTrabajados;
+
+        document.getElementById('aguinaldoBruto').textContent = aguinaldoBruto.toFixed(2);
+        document.getElementById('aguinaldoProporcional').textContent = aguinaldoProporcional.toFixed(2);
+        
+        document.getElementById('resultCard').style.display = 'block';
+    });
+</script>
+
+</body>
+</html>

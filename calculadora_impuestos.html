@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Impuestos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F7DECE;
+            color: #2D2E2C;
+        }
+        .navbar {
+            background-color: #9EC4BB;
+        }
+        .navbar a {
+            color: #2D2E2C !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-control {
+            border: 1px solid #CCCCBB;
+            margin-bottom: 15px;
+        }
+        .btn-calculate {
+            background-color: #9EC4BB;
+            color: #2D2E2C;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .btn-calculate:hover {
+            background-color: #EED7C5;
+        }
+        .result-card {
+            display: none;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            background-color: #2D2E2C;
+            color: #FFFFFF;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        h2 {
+            color: #2D2E2C;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .info-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .tax-bracket {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .tax-bracket h5 {
+            color: #9EC4BB;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand mx-auto" href="#">El Financiero</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos <span class="sr-only">(actual)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Comparación de Préstamos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admisnistración de Presupuestos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contactenos.html">Contáctenos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="position: relative;">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge badge-danger" style="position: absolute; top: -5px; right: -10px;">3</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Contenido Principal -->
+<div class="container">
+    <div class="card">
+        <h2>Calculadora de Impuesto sobre la Renta</h2>
+        
+        <div class="tax-bracket mb-4">
+            <h5>Rangos de Impuesto 2024</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>• Hasta ₡863,000: 0%</p>
+                    <p>• ₡863,001 a ₡1,267,000: 10%</p>
+                </div>
+                <div class="col-md-6">
+                    <p>• ₡1,267,001 a ₡2,223,000: 15%</p>
+                    <p>• Más de ₡2,223,000: 20%</p>
+                </div>
+            </div>
+        </div>
+
+        <form id="impuestoForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Salario Bruto Mensual:</label>
+                        <input type="number" class="form-control" id="salarioBruto" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Deducciones (CCSS, etc.):</label>
+                        <input type="number" class="form-control" id="deducciones" value="0">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn-calculate">Calcular Impuesto</button>
+        </form>
+
+        <div class="card result-card" id="resultCard">
+            <h4 class="text-center">Resultado del Cálculo</h4>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <p><strong>Base Imponible:</strong> ₡<span id="baseImponible">0</span></p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Impuesto a Pagar:</strong> ₡<span id="impuestoPagar">0</span></p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Salario Neto:</strong> ₡<span id="salarioNeto">0</span></p>
+                </div>
+            </div>
+        </div>
+
+        <p class="info-text">
+            * Los cálculos son aproximados y basados en las tasas vigentes del impuesto sobre la renta en Costa Rica.
+            Consulte con un profesional para casos específicos.
+        </p>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 El Financiero. Todos los derechos reservados.</p>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('impuestoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const salarioBruto = parseFloat(document.getElementById('salarioBruto').value);
+        const deducciones = parseFloat(document.getElementById('deducciones').value) || 0;
+        const baseImponible = salarioBruto - deducciones;
+        
+        let impuesto = 0;
+        
+        if (baseImponible <= 863000) {
+            impuesto = 0;
+        } else if (baseImponible <= 1267000) {
+            impuesto = (baseImponible - 863000) * 0.10;
+        } else if (baseImponible <= 2223000) {
+            impuesto = (1267000 - 863000) * 0.10 + (baseImponible - 1267000) * 0.15;
+        } else {
+            impuesto = (1267000 - 863000) * 0.10 + (2223000 - 1267000) * 0.15 + (baseImponible - 2223000) * 0.20;
+        }
+
+        const salarioNeto = baseImponible - impuesto;
+
+        document.getElementById('baseImponible').textContent = baseImponible.toFixed(2);
+        document.getElementById('impuestoPagar').textContent = impuesto.toFixed(2);
+        document.getElementById('salarioNeto').textContent = salarioNeto.toFixed(2);
+        
+        document.getElementById('resultCard').style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
