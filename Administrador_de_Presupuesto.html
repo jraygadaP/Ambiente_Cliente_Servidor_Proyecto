@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Presupuesto</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F7DECE;
+            color: #2D2E2C;
+        }
+
+        .navbar {
+            background-color: #9EC4BB;
+        }
+
+        .navbar a {
+            color: #2D2E2C !important;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .btn-add {
+            background-color: #9EC4BB;
+            color: #2D2E2C;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-add:hover {
+            background-color: #EED7C5;
+        }
+
+        .summary-section {
+            background-color: #F7DECE;
+            color: #2D2E2C;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .summary-section h4 {
+            margin-bottom: 10px;
+        }
+
+        .expense-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .expense-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #CCCCBB;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand mx-auto" href="#">Mi Presupuesto</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                        href="C:\xampp\htdocs\Proyecto\Ambiente_Cliente_Servidor_Proyecto\Administrador_de_Presupuesto.html">Administración
+                        de Presupuestos</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contactenos.html">Contáctenos</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="C:\xampp\htdocs\Proyecto\Ambiente_Cliente_Servidor_Proyecto\Comparación_De_Préstamos.html">Comparación de Préstamos</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="blog.html">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Ingreso y Gasto -->
+    <div class="container">
+        <h2 class="text-center">Administración de Presupuesto</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <h4>Registrar Ingreso</h4>
+                    <form id="incomeForm">
+                        <div class="form-group">
+                            <label for="incomeAmount">Monto</label>
+                            <input type="number" class="form-control" id="incomeAmount" placeholder="Ej. 5000">
+                        </div>
+                        <div class="form-group">
+                            <label for="incomeCategory">Categoría</label>
+                            <select class="form-control" id="incomeCategory">
+                                <option>Salario</option>
+                                <option>Bonos</option>
+                                <option>Otros</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addIncome()">Agregar Ingreso</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <h4>Registrar Gasto</h4>
+                    <form id="expenseForm">
+                        <div class="form-group">
+                            <label for="expenseAmount">Monto</label>
+                            <input type="number" class="form-control" id="expenseAmount" placeholder="Ej. 200">
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseCategory">Categoría</label>
+                            <select class="form-control" id="expenseCategory">
+                                <option>Alquiler</option>
+                                <option>Transporte</option>
+                                <option>Comida</option>
+                                <option>Entretenimiento</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addExpense()">Agregar Gasto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumen -->
+        <div class="summary-section">
+            <h4>Resumen del Presupuesto</h4>
+            <p><strong>Ingresos Totales:</strong> <span id="totalIncome">$0</span></p>
+            <p><strong>Gastos Totales:</strong> <span id="totalExpense">$0</span></p>
+            <p><strong>Presupuesto Restante:</strong> <span id="remainingBudget">$0</span></p>
+        </div>
+
+        <!-- Detalle de Gastos -->
+        <div class="card">
+            <h4>Detalle de Gastos</h4>
+            <ul class="expense-list" id="expenseList">
+                <!-- Aquí se mostrarán los gastos registrados -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Mi Presupuesto. Todos los derechos reservados.</p>
+    </div>
+
+    <script>
+        let totalIncome = 0;
+        let totalExpense = 0;
+
+        function addIncome() {
+            const incomeAmount = parseFloat(document.getElementById('incomeAmount').value);
+            if (!isNaN(incomeAmount)) {
+                totalIncome += incomeAmount;
+                updateSummary();
+            }
+        }
+
+        function addExpense() {
+            const expenseAmount = parseFloat(document.getElementById('expenseAmount').value);
+            const expenseCategory = document.getElementById('expenseCategory').value;
+            if (!isNaN(expenseAmount)) {
+                totalExpense += expenseAmount;
+                updateSummary();
+                addExpenseToList(expenseCategory, expenseAmount);
+            }
+        }
+
+        function updateSummary() {
+            document.getElementById('totalIncome').innerText = `$${totalIncome.toFixed(2)}`;
+            document.getElementById('totalExpense').innerText = `$${totalExpense.toFixed(2)}`;
+            document.getElementById('remainingBudget').innerText = `$${(totalIncome - totalExpense).toFixed(2)}`;
+        }
+
+        function addExpenseToList(category, amount) {
+            const expenseList = document.getElementById('expenseList');
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<span>${category}</span> <span>$${amount.toFixed(2)}</span>`;
+            expenseList.appendChild(listItem);
+        }
+    </script>
+
+</body>
+
+</html>

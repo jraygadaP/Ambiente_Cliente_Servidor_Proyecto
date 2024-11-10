@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparación de Préstamos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F7DECE;
+            color: #2D2E2C;
+        }
+
+        .navbar {
+            background-color: #9EC4BB;
+        }
+
+        .navbar a {
+            color: #2D2E2C !important;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .loan-card {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .loan-card h2 {
+            color: #2D2E2C;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .loan-details li {
+            margin: 0.5rem 0;
+        }
+
+        .btn-apply {
+            background-color: #9EC4BB;
+            color: #2D2E2C;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-apply:hover {
+            background-color: #EED7C5;
+        }
+
+        .footer {
+            text-align: center;
+            background-color: #2D2E2C;
+            color: #FFFFFF;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand mx-auto" href="#">El Financiero</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos</a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                        href="C:\xampp\htdocs\Proyecto\Ambiente_Cliente_Servidor_Proyecto\Comparación_De_Préstamos.html">Comparación
+                        de Préstamos</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        href="C:\xampp\htdocs\Proyecto\Ambiente_Cliente_Servidor_Proyecto\Administrador_de_Presupuesto.html">Administración
+                        de Presupuestos</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contactenos.html">Contáctenos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="position: relative;">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge badge-danger" style="position: absolute; top: -5px; right: -10px;">3</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Comparación de Préstamos -->
+    <div class="container">
+        <h2>Comparación de Préstamos</h2>
+        <div class="row justify-content-center">
+            <!-- Préstamo A -->
+            <div class="col-md-5 loan-card">
+                <h2>Préstamo A</h2>
+                <ul class="loan-details list-unstyled">
+                    <li><strong>Monto:</strong> $10,000</li>
+                    <li><strong>Tasa de interés:</strong> 5% anual</li>
+                    <li><strong>Plazo:</strong> 5 años</li>
+                    <li><strong>Cuota mensual:</strong> $188</li>
+                    <li><strong>Costo total:</strong> $11,280</li>
+                </ul>
+                <button class="btn-apply">Solicitar Préstamo</button>
+            </div>
+
+            <!-- Préstamo B -->
+            <div class="col-md-5 loan-card">
+                <h2>Préstamo B</h2>
+                <ul class="loan-details list-unstyled">
+                    <li><strong>Monto:</strong> $10,000</li>
+                    <li><strong>Tasa de interés:</strong> 4% anual</li>
+                    <li><strong>Plazo:</strong> 3 años</li>
+                    <li><strong>Cuota mensual:</strong> $295</li>
+                    <li><strong>Costo total:</strong> $10,620</li>
+                </ul>
+                <button class="btn-apply">Solicitar Préstamo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 El Financiero. Todos los derechos reservados.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
