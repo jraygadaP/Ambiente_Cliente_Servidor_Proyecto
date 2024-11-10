@@ -1,15 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contáctenos</title>
+    <title>Inicio</title>
+    <!-- Enlace al CSS de Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/contactenos.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
 
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item i {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .notification-text {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .badge {
+            border-radius: 50%;
+            background-color: #e74c3c;
+            color: white;
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+
+        .view-all-btn {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -51,36 +100,29 @@
         </nav>
     </header>
 
-<!-- Formulario Contacto -->
-<div class="container">
-    <div class="card">
-        <h2>Contáctenos</h2>
-        <form>
-            <div class="form-group">
-                <label for="name">Nombre:</label>
-                <input type="text" class="form-control" id="name" required>
+    <div class="container">
+        <div class="card">
+            <h2 class="text-center">Notificaciones</h2>
+
+            <div class="notification-item">
+                <div>
+                    <i class="fas fa-info-circle"></i>
+                    <span class="notification-text">Se ha actualizado la política de privacidad.</span>
+                </div>
+                <span class="badge">Nuevo</span>
             </div>
-            <div class="form-group">
-                <label for="email">Correo:</label>
-                <input type="email" class="form-control" id="email" required>
+
+            <div class="notification-item">
+                <div>
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-text">Tienes un nuevo mensaje en tu bandeja de entrada.</span>
+                </div>
+                <span class="badge">Nuevo</span>
             </div>
-            <div class="form-group">
-                <label for="message">Mensaje:</label>
-                <textarea class="form-control" id="message" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
+
+        </div>
     </div>
-</div>
-
-<!-- Footer -->
-<div class="footer">
-    <p>&copy; 2024 El Financiero. Todos los derechos reservados.</p>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-</html>
 
+</html>

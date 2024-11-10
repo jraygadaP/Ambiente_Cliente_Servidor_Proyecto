@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Financiero</title>
+    <!-- Enlace al CSS de Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .card {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 50px auto;
+        }
+        h2 {
+            color: #2D2E2C;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-control {
+            border: 1px solid #CCCCBB;
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .btn-register {
+            background-color: #9EC4BB;
+            color: #2D2E2C;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            cursor: pointer;
+        }
+        .btn-register:hover {
+            background-color: #EED7C5;
+        }
+        .info-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            background-color: #2D2E2C;
+            color: #FFFFFF;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Registro</h2>
+        <form action="/ruta-de-registro" method="post">
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre completo" required>
+            <input type="email" class="form-control" name="email" placeholder="Correo Electrónico" required>
+            <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
+            <input type="password" class="form-control" name="confirm-password" placeholder="Confirmar Contraseña" required>
+            <button type="submit" class="btn-register">Registrarse</button>
+        </form>
+        <p class="info-text">¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
+    </div>
+</body>
+
+
+
+</html>
