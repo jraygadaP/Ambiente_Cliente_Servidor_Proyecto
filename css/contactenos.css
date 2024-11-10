@@ -3,10 +3,6 @@ body {
     color: #2D2E2C; 
 }
 
-.navbar {
-    background-color: #9EC4BB; 
-}
-
 .navbar a {
     color: #2D2E2C !important; 
 }
@@ -24,13 +20,13 @@ body {
 }
 
 .btn-primary {
-    background-color: #EED7C5; 
-    border-color: #EED7C5; 
+    background-color: #9EC4BB;
+    border-color: #9EC4BB; 
 }
 
 .btn-primary:hover {
-    background-color: #9EC4BB; 
-    border-color: #9EC4BB; 
+    background-color: #EED7C5;
+    border-color: #EED7C5; 
 }
 
 .container {

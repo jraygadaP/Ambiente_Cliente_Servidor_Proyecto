@@ -1,0 +1,42 @@
+body {
+    background-color: #F7DECE;
+    color: #2D2E2C;
+}
+
+.navbar a {
+    color: #2D2E2C !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btnlogin {
+    background-color: #9EC4BB;
+    color: #2D2E2C;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.btnlogin:hover {
+    background-color: #CCCCBB;
+    color: white;
+}
