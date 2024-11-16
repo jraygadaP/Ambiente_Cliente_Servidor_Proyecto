@@ -13,146 +13,257 @@
         }
         .navbar {
             background-color: #9EC4BB;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .navbar a {
             color: #2D2E2C !important;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #4A4B4A !important;
         }
         .navbar-brand {
             font-weight: bold;
+            font-size: 1.5rem;
         }
         .container {
             margin-top: 50px;
+            margin-bottom: 50px;
         }
-        .card {
+        .main-card {
             background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .info-card {
+            background-color: #EED7C5;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid #9EC4BB;
         }
         .form-control {
-            border: 1px solid #CCCCBB;
+            border: 2px solid #CCCCBB;
+            border-radius: 8px;
+            padding: 12px;
             margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #9EC4BB;
+            box-shadow: 0 0 0 0.2rem rgba(158, 196, 187, 0.25);
         }
         .btn-calculate {
             background-color: #9EC4BB;
             color: #2D2E2C;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .btn-calculate:hover {
-            background-color: #EED7C5;
+            background-color: #7DA099;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .result-card {
             display: none;
-            margin-top: 20px;
+            margin-top: 25px;
+            background-color: #F8F9FA;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #9EC4BB;
         }
         .footer {
             text-align: center;
             background-color: #2D2E2C;
             color: #FFFFFF;
-            padding: 20px;
+            padding: 25px;
             margin-top: 50px;
         }
         h2 {
             color: #2D2E2C;
             text-align: center;
             margin-bottom: 30px;
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #9EC4BB;
         }
         .info-text {
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: #666;
-            margin-top: 10px;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #9EC4BB;
+            margin-bottom: 15px;
+        }
+        .highlight {
+            background-color: #F7DECE;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .example-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #9EC4BB;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .result-number {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #2D2E2C;
+        }
+        .input-group-text {
+            background-color: #9EC4BB;
+            color: white;
+            border: none;
         }
     </style>
 </head>
 <body>
 
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand mx-auto" href="#">El Financiero</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand mx-auto" href="index.html">El Financiero</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Inicio <span class="sr-only">(actual)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Comparación_De_Préstamos.html">Comparación de Préstamos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Administrador_de_Presupuesto.html">Admisnistración de Presupuestos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactenos.html">Contáctenos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="notificacion.html" style="position: relative;">
-                            <i class="fas fa-bell"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos <span class="sr-only">(actual)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Comparación de Préstamos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admisnistración de Presupuestos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contactenos.html">Contáctenos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="position: relative;">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge badge-danger" style="position: absolute; top: -5px; right: -10px;">3</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <!-- Contenido Principal -->
 <div class="container">
-    <div class="card">
-        <h2>Calculadora de Aguinaldo</h2>
+    <!-- Tarjeta de Información -->
+    <div class="main-card">
+        <div class="text-center mb-4">
+            <i class="fas fa-money-bill-wave feature-icon"></i>
+            <h2>Calculadora de Aguinaldo</h2>
+        </div>
+
+        <div class="info-card">
+            <h5><i class="fas fa-info-circle"></i> ¿Qué es el aguinaldo?</h5>
+            <p>El aguinaldo es un beneficio laboral obligatorio en Costa Rica, equivalente a un mes adicional de salario que se paga en diciembre. Este derecho está establecido en la Ley N° 2412 y representa un treceavo mes de salario para todos los trabajadores.</p>
+            
+            <div class="example-box">
+                <h6><i class="fas fa-lightbulb"></i> Ejemplo práctico:</h6>
+                <p>Si un trabajador gana ₡400,000 mensuales y ha trabajado todo el año, su aguinaldo sería ₡400,000.</p>
+                <p>Si solo trabajó 6 meses, sería: (₡400,000 × 6) ÷ 12 = ₡200,000</p>
+            </div>
+        </div>
+
         <form id="aguinaldoForm">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Salario Mensual Base:</label>
-                        <input type="number" class="form-control" id="salarioBase" required>
+                        <label><i class="fas fa-dollar-sign"></i> Salario Mensual Base:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₡</span>
+                            </div>
+                            <input type="number" class="form-control" id="salarioBase" required placeholder="Ingrese su salario mensual">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Meses Trabajados:</label>
-                        <input type="number" class="form-control" id="mesesTrabajados" max="12" min="1" required>
+                        <label><i class="fas fa-calendar-alt"></i> Meses Trabajados:</label>
+                        <input type="number" class="form-control" id="mesesTrabajados" max="12" min="1" required placeholder="1-12 meses">
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label>Extras y Comisiones (opcional):</label>
-                <input type="number" class="form-control" id="extras" value="0">
+                <label><i class="fas fa-plus-circle"></i> Extras y Comisiones (opcional):</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">₡</span>
+                    </div>
+                    <input type="number" class="form-control" id="extras" value="0" placeholder="Ingrese montos adicionales">
+                </div>
             </div>
-            <button type="submit" class="btn-calculate">Calcular Aguinaldo</button>
+            <button type="submit" class="btn-calculate">
+                <i class="fas fa-calculator"></i> Calcular Aguinaldo
+            </button>
         </form>
 
         <div class="card result-card" id="resultCard">
-            <h4 class="text-center">Resultado del Cálculo</h4>
+            <h4 class="text-center mb-4"><i class="fas fa-chart-line"></i> Resultado del Cálculo</h4>
             <div class="row mt-3">
                 <div class="col-md-6">
-                    <p><strong>Aguinaldo Bruto:</strong> ₡<span id="aguinaldoBruto">0</span></p>
+                    <div class="card p-3 text-center">
+                        <h6>Aguinaldo Bruto</h6>
+                        <p class="result-number">₡<span id="aguinaldoBruto">0</span></p>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Aguinaldo Proporcional:</strong> ₡<span id="aguinaldoProporcional">0</span></p>
+                    <div class="card p-3 text-center">
+                        <h6>Aguinaldo Proporcional</h6>
+                        <p class="result-number">₡<span id="aguinaldoProporcional">0</span></p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <p class="info-text">
-            * El aguinaldo en Costa Rica corresponde al pago adicional de un mes de salario, calculado como el promedio de los salarios ordinarios y extraordinarios recibidos durante el último año.
-        </p>
+        <div class="mt-4">
+            <h5><i class="fas fa-exclamation-circle"></i> Información Importante</h5>
+            <ul class="info-text">
+                <li>El aguinaldo no está sujeto a deducciones de la CCSS ni del impuesto sobre la renta.</li>
+                <li>Debe pagarse dentro de los primeros 20 días de diciembre.</li>
+                <li>Se calcula con base en el promedio de salarios ordinarios y extraordinarios.</li>
+                <li>Los cálculos son aproximados y pueden variar según situaciones específicas.</li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -177,8 +288,14 @@
         const aguinaldoBruto = salarioTotal;
         const aguinaldoProporcional = (aguinaldoBruto / 12) * mesesTrabajados;
 
-        document.getElementById('aguinaldoBruto').textContent = aguinaldoBruto.toFixed(2);
-        document.getElementById('aguinaldoProporcional').textContent = aguinaldoProporcional.toFixed(2);
+        document.getElementById('aguinaldoBruto').textContent = aguinaldoBruto.toLocaleString('es-CR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+        document.getElementById('aguinaldoProporcional').textContent = aguinaldoProporcional.toLocaleString('es-CR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
         
         document.getElementById('resultCard').style.display = 'block';
     });
