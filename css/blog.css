@@ -62,3 +62,59 @@ body {
     flex-direction: column;
     justify-content: space-between; 
 }
+
+.btn-like {
+    background-color: transparent;
+    border: none;
+    color: #9EC4BB;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.btn-like:hover {
+    color: #FF6F61;
+}
+
+.btn-like .fas {
+    margin-right: 5px;
+}
+
+.like-count {
+    font-weight: bold;
+}
+
+.comments-section {
+    border-top: 1px solid #CCCCBB;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.comments-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.comments-list div {
+    background-color: #F7DECE;
+    border-radius: 8px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.btn-comment {
+    background-color: #9EC4BB;
+    color: #2D2E2C;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-comment:hover {
+    background-color: #FF6F61;
+    color: white;
+}
