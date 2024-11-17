@@ -7,8 +7,13 @@
     <title>Comparación de Préstamos</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <style>
+        body {
+            background-color: #ffffff8a;
+            color: #2D2E2C;
+            font-family: 'Arial', sans-serif;
+        }
+
 
         .navbar {
             background-color: #9EC4BB;
@@ -16,31 +21,51 @@
 
         .navbar a {
             color: #2D2E2C !important;
-        }
-
-        .navbar-brand {
             font-weight: bold;
         }
 
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+
         .container {
-            margin-top: 50px;
+            margin-top: 30px;
+        }
+
+        .title-box {
+            background-color: #9EC4BB;
+            color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .loan-card {
             background-color: #FFFFFF;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .loan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
 
         .loan-card h2 {
             color: #2D2E2C;
-            text-align: center;
+            font-size: 1.8rem;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .loan-details li {
             margin: 0.5rem 0;
+            font-size: 1rem;
         }
 
         .btn-apply {
@@ -48,13 +73,34 @@
             color: #2D2E2C;
             border: none;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1.1rem;
             font-weight: bold;
             transition: background-color 0.3s ease;
             width: 100%;
+            text-align: center;
         }
 
         .btn-apply:hover {
+            background-color: #EED7C5;
+        }
+
+        .carousel-item {
+            text-align: center;
+        }
+
+        .carousel-item a {
+            display: inline-block;
+            color: #2D2E2C;
+            background-color: #F7DECE;
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-item a:hover {
             background-color: #EED7C5;
         }
 
@@ -63,21 +109,53 @@
             background-color: #2D2E2C;
             color: #FFFFFF;
             padding: 20px;
-            margin-top: 50px;
+            margin-top: 30px;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table {
+            margin-top: 30px;
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-top: 40px;
+            background-color: #9EC4BB;
+            padding: 20px;
+            border-radius: 10px;
+            color: #FFFFFF;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section input,
+        .form-section select {
+            margin-bottom: 15px;
+        }
+
+        .chart {
+            margin-top: 30px;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
 
-
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand mx-auto" href="index.html">El Financiero</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
@@ -111,46 +189,134 @@
         </nav>
     </header>
 
-    <!-- Comparación de Préstamos -->
     <div class="container">
-        <h2>Comparación de Préstamos</h2>
-        <div class="row justify-content-center">
-            <!-- Préstamo A -->
-            <div class="col-md-5 loan-card">
-                <h2>Préstamo A</h2>
-                <ul class="loan-details list-unstyled">
-                    <li><strong>Monto:</strong> $10,000</li>
-                    <li><strong>Tasa de interés:</strong> 5% anual</li>
-                    <li><strong>Plazo:</strong> 5 años</li>
-                    <li><strong>Cuota mensual:</strong> $188</li>
-                    <li><strong>Costo total:</strong> $11,280</li>
-                </ul>
-                <button class="btn-apply">Solicitar Préstamo</button>
-            </div>
+        <div class="title-box">
+            <h2>Comparación de Préstamos</h2>
+        </div>
 
-            <!-- Préstamo B -->
-            <div class="col-md-5 loan-card">
-                <h2>Préstamo B</h2>
-                <ul class="loan-details list-unstyled">
-                    <li><strong>Monto:</strong> $10,000</li>
-                    <li><strong>Tasa de interés:</strong> 4% anual</li>
-                    <li><strong>Plazo:</strong> 3 años</li>
-                    <li><strong>Cuota mensual:</strong> $295</li>
-                    <li><strong>Costo total:</strong> $10,620</li>
-                </ul>
-                <button class="btn-apply">Solicitar Préstamo</button>
+        <!-- Tarjetas de préstamos -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="loan-card">
+                    <h2>Préstamo A</h2>
+                    <ul class="loan-details list-unstyled">
+                        <li><strong>Monto:</strong> $10,000</li>
+                        <li><strong>Tasa de interés:</strong> 5% anual</li>
+                        <li><strong>Plazo:</strong> 5 años</li>
+                        <li><strong>Cuota mensual:</strong> $188</li>
+                        <li><strong>Costo total:</strong> $11,280</li>
+                    </ul>
+                    <button class="btn-apply">Solicitar Préstamo</button>
+                </div>
             </div>
+            <div class="col-md-6">
+                <div class="loan-card">
+                    <h2>Préstamo B</h2>
+                    <ul class="loan-details list-unstyled">
+                        <li><strong>Monto:</strong> $10,000</li>
+                        <li><strong>Tasa de interés:</strong> 4% anual</li>
+                        <li><strong>Plazo:</strong> 3 años</li>
+                        <li><strong>Cuota mensual:</strong> $295</li>
+                        <li><strong>Costo total:</strong> $10,620</li>
+                    </ul>
+                    <button class="btn-apply">Solicitar Préstamo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla comparativa -->
+        <div class="comparison-table">
+            <h3 class="text-center">Tabla Comparativa de Préstamos</h3>
+            <table class="table table-bordered text-center">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Préstamo</th>
+                        <th>Monto</th>
+                        <th>Tasa de Interés</th>
+                        <th>Plazo</th>
+                        <th>Cuota Mensual</th>
+                        <th>Costo Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td>$10,000</td>
+                        <td>5%</td>
+                        <td>5 años</td>
+                        <td>$188</td>
+                        <td>$11,280</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>$10,000</td>
+                        <td>4%</td>
+                        <td>3 años</td>
+                        <td>$295</td>
+                        <td>$10,620</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulario -->
+        <div class="form-section">
+            <h3>Personaliza tu Préstamo</h3>
+            <form>
+                <div class="form-group">
+                    <label for="loanAmount">Monto del Préstamo:</label>
+                    <input type="number" class="form-control" id="loanAmount" placeholder="Ingrese el monto">
+                </div>
+                <div class="form-group">
+                    <label for="interestRate">Tasa de Interés (%):</label>
+                    <input type="number" class="form-control" id="interestRate" placeholder="Ingrese la tasa">
+                </div>
+                <div class="form-group">
+                    <label for="loanTerm">Plazo (años):</label>
+                    <select class="form-control" id="loanTerm">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-light">Calcular</button>
+            </form>
+        </div>
+
+        <!-- Gráfica -->
+        <div class="chart">
+            <h3>Distribución de Cuotas</h3>
+            <canvas id="loanChart"></canvas>
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
         <p>&copy; 2024 El Financiero. Todos los derechos reservados.</p>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('loanChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['A', 'B'],
+                datasets: [{
+                    label: 'Cuotas Mensuales',
+                    data: [188, 295],
+                    backgroundColor: ['#9EC4BB', '#EED7C5']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
-
-</html>

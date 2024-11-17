@@ -1,3 +1,8 @@
+
+
+
+</html>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,11 +12,38 @@
     <title>Administración de Presupuesto</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <style>
+        body {
+            background-color: #a5a5a598;
+            color: #2D2E2C;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: #9EC4BB;
+        }
+
+        .navbar a {
+            color: #2D2E2C !important;
+            font-weight: bold;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
 
         .container {
-            margin-top: 50px;
+            margin-top: 30px;
+        }
+
+        .title-box {
+            background-color: #9EC4BB;
+            color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .card {
@@ -19,27 +51,95 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            height: 100%;
         }
 
-        .btn-add {
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+      .summary-section {
+        background-color: #9EC4BB;
+        color: #FFFFFF;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 30px; /* Añadido margen superior */
+    }
+
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .transaction-list,
+        .goals-list,
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .transaction-list li,
+        .goals-list li,
+        .tips-list li {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #CCCCBB;
+            padding: 10px 0;
+        }
+
+        .footer {
+            text-align: center;
+            background-color: #2D2E2C;
+            color: #FFFFFF;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background-color: #FFFFFF;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h4 {
+            color: #2D2E2C;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-action {
             background-color: #9EC4BB;
             color: #2D2E2C;
             border: none;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1.1rem;
             font-weight: bold;
             transition: background-color 0.3s ease;
             width: 100%;
+            text-align: center;
         }
 
-        .btn-add:hover {
+        .btn-action:hover {
             background-color: #EED7C5;
         }
 
         .summary-section {
-            background-color: #F7DECE;
-            color: #2D2E2C;
+            background-color: #9EC4BB;
+            color: #FFFFFF;
             padding: 15px;
             border-radius: 8px;
             text-align: center;
@@ -62,6 +162,7 @@
             padding: 8px 0;
             border-bottom: 1px solid #CCCCBB;
         }
+
     </style>
 </head>
 
@@ -70,11 +171,10 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand mx-auto" href="index.html">El Financiero</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+        
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
@@ -90,7 +190,7 @@
                         <a class="nav-link" href="Comparación_De_Préstamos.html">Comparación de Préstamos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Administrador_de_Presupuesto.html">Admisnistración de Presupuestos</a>
+                        <a class="nav-link" href="Administrador_de_Presupuesto.html">Administración de Presupuestos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contactenos.html">Contáctenos</a>
@@ -108,9 +208,13 @@
         </nav>
     </header>
 
-    <!-- Ingreso y Gasto -->
     <div class="container">
-        <h2 class="text-center">Administración de Presupuesto</h2>
+        <!-- Título -->
+        <div class="title-box">
+            <h2>Administración de Presupuesto</h2>
+            <p>Gestiona tus ingresos, controla tus gastos y alcanza tus metas financieras</p>
+        </div>
+
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
@@ -128,7 +232,7 @@
                                 <option>Otros</option>
                             </select>
                         </div>
-                        <button type="button" class="btn-add" onclick="addIncome()">Agregar Ingreso</button>
+                        <button type="button" class="btn-action" onclick="addIncome()">Agregar Ingreso</button>
                     </form>
                 </div>
             </div>
@@ -150,70 +254,99 @@
                                 <option>Entretenimiento</option>
                             </select>
                         </div>
-                        <button type="button" class="btn-add" onclick="addExpense()">Agregar Gasto</button>
+                        <button type="button" class="btn-action" onclick="addExpense()">Agregar Gasto</button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <!-- Resumen -->
-        <div class="summary-section">
-            <h4>Resumen del Presupuesto</h4>
-            <p><strong>Ingresos Totales:</strong> <span id="totalIncome">$0</span></p>
-            <p><strong>Gastos Totales:</strong> <span id="totalExpense">$0</span></p>
-            <p><strong>Presupuesto Restante:</strong> <span id="remainingBudget">$0</span></p>
-        </div>
 
-        <!-- Detalle de Gastos -->
-        <div class="card">
-            <h4>Detalle de Gastos</h4>
-            <ul class="expense-list" id="expenseList">
-                <!-- Aquí se mostrarán los gastos registrados -->
-            </ul>
+
+<!-- Resumen -->
+<div class="summary-section">
+    <h4>Resumen del Presupuesto</h4>
+    <div class="row text-center">
+        <!-- Ingresos Totales -->
+        <div class="col-md-4">
+            <div class="card" style="background-color: #02585146; color: #FFFFFF;">
+                <div class="card-body">
+                    <h5 class="card-title">Ingresos Totales</h5>
+                    <p class="card-text"><span id="totalIncome">$0</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Gastos Totales -->
+        <div class="col-md-4">
+            <div class="card" style="background-color: #02585146; color: #FFFFFF;">
+                <div class="card-body">
+                    <h5 class="card-title">Gastos Totales</h5>
+                    <p class="card-text"><span id="totalExpense">$0</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Presupuesto Restante -->
+        <div class="col-md-4">
+            <div class="card" style="background-color: #02585146; color: #FFFFFF;">
+                <div class="card-body">
+                    <h5 class="card-title">Presupuesto Restante</h5>
+                    <p class="card-text"><span id="remainingBudget">$0</span></p>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
+
+
+
+        <!-- Segunda Fila: Metas y Historial -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <h4>Metas Financieras</h4>
+                    <ul class="goals-list">
+                        <li><span>Ahorro para Vacaciones:</span> <span>$3000 / $5000</span></li>
+                        <li><span>Fondo de Emergencia:</span> <span>$2000 / $10000</span></li>
+                        <li><span>Compra de Vehículo:</span> <span>$15000 / $25000</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <h4>Historial de Transacciones</h4>
+                    <ul class="transaction-list">
+                        <li><span>Ingreso: Salario</span> <span>+ $2000</span></li>
+                        <li><span>Gasto: Alquiler</span> <span>- $800</span></li>
+                        <li><span>Gasto: Comida</span> <span>- $300</span></li>
+                        <li><span>Ingreso: Bonos</span> <span>+ $500</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tercera Fila: Consejos Financieros -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <h4>Consejos Financieros</h4>
+                    <ul class="tips-list">
+                        <li>Establece un presupuesto mensual y cúmplelo.</li>
+                        <li>Ahorra al menos el 20% de tus ingresos mensuales.</li>
+                        <li>Evita las deudas de alto interés, como las tarjetas de crédito.</li>
+                        <li>Revisa tus gastos regularmente para identificar áreas de mejora.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <div class="footer">
         <p>&copy; 2024 El Financiero. Todos los derechos reservados.</p>
     </div>
 
-
-    <script>
-        let totalIncome = 0;
-        let totalExpense = 0;
-
-        function addIncome() {
-            const incomeAmount = parseFloat(document.getElementById('incomeAmount').value);
-            if (!isNaN(incomeAmount)) {
-                totalIncome += incomeAmount;
-                updateSummary();
-            }
-        }
-
-        function addExpense() {
-            const expenseAmount = parseFloat(document.getElementById('expenseAmount').value);
-            const expenseCategory = document.getElementById('expenseCategory').value;
-            if (!isNaN(expenseAmount)) {
-                totalExpense += expenseAmount;
-                updateSummary();
-                addExpenseToList(expenseCategory, expenseAmount);
-            }
-        }
-
-        function updateSummary() {
-            document.getElementById('totalIncome').innerText = `$${totalIncome.toFixed(2)}`;
-            document.getElementById('totalExpense').innerText = `$${totalExpense.toFixed(2)}`;
-            document.getElementById('remainingBudget').innerText = `$${(totalIncome - totalExpense).toFixed(2)}`;
-        }
-
-        function addExpenseToList(category, amount) {
-            const expenseList = document.getElementById('expenseList');
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `<span>${category}</span> <span>$${amount.toFixed(2)}</span>`;
-            expenseList.appendChild(listItem);
-        }
-    </script>
-
 </body>
 
 </html>
+
+
