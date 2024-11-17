@@ -1,6 +1,7 @@
 body {
-    background-color: #F7DECE;
+    background-color: #e7e7e7ec;
     color: #2D2E2C;
+    font-family: 'Arial', sans-serif;
 }
 
 .navbar a {
@@ -39,4 +40,20 @@ body {
 .btnlogin:hover {
     background-color: #CCCCBB;
     color: white;
+}
+
+footer {
+    text-align: center;
+    background-color: #2D2E2C;
+    color: #FFFFFF;
+    padding: 25px;
+    margin-top: 50px;
+}
+
+.footer {
+    text-align: center;
+    background-color: #2D2E2C;
+    color: #FFFFFF;
+    padding: 25px;
+    margin-top: 50px;
 }

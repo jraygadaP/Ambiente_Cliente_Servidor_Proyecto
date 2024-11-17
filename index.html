@@ -1,71 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Inicio - El Financiero</title>
     <!-- Enlace al CSS de Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/finanzas.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand mx-auto" href="#">El Financiero</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Inicio <span class="sr-only">(actual)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Comparación_De_Préstamos.html">Comparación de Préstamos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Administrador_de_Presupuesto.html">Administración de Presupuestos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contactenos.html">Contáctenos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blog.html">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="notificacion.html" style="position: relative;">
-                        <i class="fas fa-bell"></i>
-                    </a>
-                </li>
-                <li class="nav-item  ml-3">
-                    <a class="nav-link" href="login.html">
-                        <i class="fas fa-user"></i>
-                    </a>
-                </li>
-            </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">El Financiero</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Comparación_De_Préstamos.html">Comparación de Préstamos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Administrador_de_Presupuesto.html">Administración de Presupuestos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contactenos.html">Contáctenos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="notificacion.html">
+                            <i class="fas fa-bell"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero-section">
+            <h1>Bienvenido a El Financiero</h1>
+            <p>Tu aliado en la gestión de finanzas personales y empresariales</p>
+            <a href="#features" class="btn btn-primary btn-lg mt-4">Explorar Funciones</a>
         </div>
-    </nav>
-</header>
 
-<main>
-    <div class="container mt-4">
-        <h1>Sitio</h1>
-        <p>Este es el contenido principal de la página de inicio.</p>
-    </div>
-</main>
+        <div class="container my-5">
+            <div class="row text-center" id="features">
+                <div class="col-md-4">
+                    <div class="card feature-card p-4">
+                        <i class="fas fa-calculator fa-3x mb-3 text-primary"></i>
+                        <h4>Calculadoras</h4>
+                        <p>Herramientas para calcular impuestos, aguinaldos y más.</p>
+                        <a href="calculadora_impuestos.html" class="btn btn-outline-primary">Ver más</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card p-4">
+                        <i class="fas fa-piggy-bank fa-3x mb-3 text-success"></i>
+                        <h4>Presupuestos</h4>
+                        <p>Administra tus finanzas con nuestras herramientas de presupuesto.</p>
+                        <a href="Administrador_de_Presupuesto.html" class="btn btn-outline-success">Comenzar</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card p-4">
+                        <i class="fas fa-chart-line fa-3x mb-3 text-info"></i>
+                        <h4>Comparación</h4>
+                        <p>Encuentra los mejores préstamos y opciones financieras.</p>
+                        <a href="Comparación_De_Préstamos.html" class="btn btn-outline-info">Descubre más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-<!-- Scripts de Bootstrap y dependencias de JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer>
+        <p>&copy; 2024 El Financiero. Todos los derechos reservados. <a href="contactenos.html">Contáctanos</a>.</p>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

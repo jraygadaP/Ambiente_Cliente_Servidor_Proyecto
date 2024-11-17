@@ -4,28 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Notificaciones</title>
     <!-- Enlace al CSS de Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+
         .container {
             margin-top: 30px;
         }
 
         .card {
-            background-color: #fff;
+            background-color: #ffffff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .notification-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eaeaea;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-item:hover {
+            background-color: #f0f8ff;
         }
 
         .notification-item:last-child {
@@ -33,26 +40,40 @@
         }
 
         .notification-item i {
-            font-size: 20px;
-            margin-right: 10px;
+            font-size: 22px;
+            margin-right: 12px;
+            color: #007bff;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .notification-item i:hover {
+            color: #0056b3;
         }
 
         .notification-text {
-            font-size: 14px;
+            font-size: 16px;
             color: #333;
+            flex-grow: 1;
         }
 
         .badge {
-            border-radius: 50%;
+            border-radius: 20px;
             background-color: #e74c3c;
             color: white;
-            font-size: 12px;
-            padding: 5px 10px;
+            font-size: 14px;
+            padding: 5px 12px;
+            margin-left: 10px;
         }
 
         .view-all-btn {
             margin-top: 20px;
             display: block;
+            text-align: center;
+        }
+
+        .mark-all-btn {
+            margin-top: 20px;
             text-align: center;
         }
     </style>
@@ -66,7 +87,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
@@ -105,21 +126,20 @@
             <h2 class="text-center">Notificaciones</h2>
 
             <div class="notification-item">
-                <div>
-                    <i class="fas fa-info-circle"></i>
-                    <span class="notification-text">Se ha actualizado la política de privacidad.</span>
-                </div>
+                <i class="fas fa-info-circle"></i>
+                <span class="notification-text">Se ha actualizado la política de privacidad.</span>
                 <span class="badge">Nuevo</span>
             </div>
 
             <div class="notification-item">
-                <div>
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-text">Tienes un nuevo mensaje en tu bandeja de entrada.</span>
-                </div>
+                <i class="fas fa-bell"></i>
+                <span class="notification-text">Tienes un nuevo mensaje en tu bandeja de entrada.</span>
                 <span class="badge">Nuevo</span>
             </div>
 
+            <div class="mark-all-btn">
+                <button class="btn btn-primary btn-sm">Marcar todas como leídas</button>
+            </div>
         </div>
     </div>
 

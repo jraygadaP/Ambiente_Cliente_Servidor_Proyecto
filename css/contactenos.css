@@ -1,14 +1,7 @@
 body {
-    background-color: #F7DECE; 
-    color: #2D2E2C; 
-}
-
-.navbar a {
-    color: #2D2E2C !important; 
-}
-
-.navbar-brand {
-    font-weight: bold;
+    background-color: #e7e7e7ec;
+    color: #2D2E2C;
+    font-family: 'Arial', sans-serif;
 }
 
 .form-control {
