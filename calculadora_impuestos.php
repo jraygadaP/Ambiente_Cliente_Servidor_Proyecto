@@ -1,14 +1,22 @@
+<?php
+require_once 'config/config.php';
+require_once 'includes/auth.php';
+
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Impuestos</title>
+    <title>Calculadora de Impuestos - El Financiero</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <style>
-
         .container {
             margin-top: 50px;
             margin-bottom: 50px;
@@ -136,62 +144,29 @@
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
+        body {
+            background-color: #e7e7e7ec;
+            color: #2D2E2C;
+            font-family: 'Arial', sans-serif;
+        }
     </style>
 </head>
-<body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand mx-auto" href="index.html">El Financiero</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Inicio</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="calculadora_impuestos.html">Calculadora de Impuestos <span class="sr-only">(actual)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="calculadora_aguinaldos.html">Calculadora de Aguinaldos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Comparación_De_Préstamos.html">Comparación de Préstamos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Administrador_de_Presupuesto.html">Administración de Presupuestos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contactenos.html">Contáctenos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blog.html">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="notificacion.html" style="position: relative;">
-                        <i class="fas fa-bell"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    
-    <!-- Contenido Principal -->
+<body>
+    <?php include 'includes/header.php'; ?>
+
     <div class="container">
         <div class="main-card">
             <div class="text-center mb-4">
                 <i class="fas fa-percentage feature-icon"></i>
                 <h2>Calculadora de Impuesto sobre la Renta</h2>
             </div>
-    
+
             <div class="info-card">
                 <h5><i class="fas fa-info-circle"></i> ¿Qué es el Impuesto sobre la Renta?</h5>
                 <p>El impuesto sobre la renta es un tributo que grava los ingresos percibidos por las personas físicas y jurídicas en Costa Rica. Se aplica de manera progresiva, lo que significa que a mayor ingreso, mayor es el porcentaje de impuesto a pagar.</p>
             </div>
-    
+
             <div class="tax-bracket">
                 <h5 class="text-center"><i class="fas fa-table"></i> Rangos de Impuesto 2024</h5>
                 <div class="row">
@@ -213,7 +188,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="example-box">
                 <h6><i class="fas fa-lightbulb"></i> Ejemplo práctico:</h6>
                 <p>Si su salario mensual es de ₡1,500,000:</p>
@@ -224,7 +199,7 @@
                     <li>Total a pagar: ₡75,349.75</li>
                 </ul>
             </div>
-    
+
             <form id="impuestoForm" class="mt-4">
                 <div class="row">
                     <div class="col-md-6">
@@ -234,7 +209,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">₡</span>
                                 </div>
-                                <input type="number" class="form-control" id="salarioBruto" required placeholder="Ingrese su salario mensual">
+                                <input type="number" class="form-control" id="salarioBruto" required 
+                                       placeholder="Ingrese su salario mensual">
                             </div>
                         </div>
                     </div>
@@ -245,7 +221,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">₡</span>
                                 </div>
-                                <input type="number" class="form-control" id="deducciones" value="0" placeholder="Ingrese deducciones">
+                                <input type="number" class="form-control" id="deducciones" value="0" 
+                                       placeholder="Ingrese deducciones">
                             </div>
                         </div>
                     </div>
@@ -254,7 +231,7 @@
                     <i class="fas fa-calculator"></i> Calcular Impuesto
                 </button>
             </form>
-    
+
             <div class="card result-card" id="resultCard">
                 <h4 class="text-center mb-4"><i class="fas fa-chart-pie"></i> Resultado del Cálculo</h4>
                 <div class="row">
@@ -278,7 +255,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="mt-4">
                 <h5><i class="fas fa-exclamation-circle"></i> Información Importante</h5>
                 <ul class="info-text">
@@ -290,19 +267,16 @@
             </div>
         </div>
     </div>
-    
-    <!-- Footer -->
-    <div class="footer">
-        <p>&copy; 2024 El Financiero. Todos los derechos reservados.</p>
-    </div>
-    
+
+    <?php include 'includes/footer.php'; ?>
+
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         document.getElementById('impuestoForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // Prevenir el envío del formulario
             
             const salarioBruto = parseFloat(document.getElementById('salarioBruto').value);
             const deducciones = parseFloat(document.getElementById('deducciones').value) || 0;
@@ -338,6 +312,5 @@
             document.getElementById('resultCard').style.display = 'block';
         });
     </script>
-    
-    </body>
-    </html>
+</body>
+</html>
