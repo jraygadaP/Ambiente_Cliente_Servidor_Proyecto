@@ -6,6 +6,31 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $errores = [];
+
+    if (empty($_POST['nombre'])) $errores[] = "El campo 'Nombre' es obligatorio.";
+    if (empty($_POST['email'])) $errores[] = "El campo 'Correo' es obligatorio.";
+    if (empty($_POST['mensaje'])) $errores[] = "El campo 'Mensaje' es obligatorio.";
+
+    if (empty($errores)) {
+        $nombre = htmlspecialchars($_POST['nombre'], ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
+        $mensaje = htmlspecialchars($_POST['mensaje'], ENT_QUOTES, 'UTF-8');
+
+        $consulta = "Nombre: $nombre\nCorreo: $email\nMensaje: $mensaje\n\n";
+
+        $archivo = fopen("consultas.txt", "a");
+        if ($archivo) {
+            fwrite($archivo, $consulta);
+            fclose($archivo);
+            $exito = true;
+        } else {
+            $errores[] = "No se pudo guardar la consulta.";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,59 +90,55 @@ if (!isset($_SESSION['user_id'])) {
         }
     </style>
 </head>
-
 <body>
-   <?php include 'includes/header.php'; ?>
+    <?php include 'includes/header.php'; ?>
 
-   <div class="container">
-       <div class="card">
-           <h2>Contáctenos</h2>
-           <p class="lead">Nuestra página nació para ayudarte a gestionar tus finanzas de manera fácil y práctica. 
-           Aparte de brindarte herramientas como la calculadora de impuestos y aguinaldos, también te damos 
-           consejos de ahorro y cálculos importantes para tu economía. ¡Estamos aquí para ayudarte!</p>
+    <div class="container">
+        <div class="card">
+            <h2>Contáctenos</h2>
+            <p class="lead">¡Estamos aquí para ayudarte! Envíanos tu consulta.</p>
 
-           <form id="contact-form">
-               <div class="form-group">
-                   <label for="name">Nombre:</label>
-                   <input type="text" class="form-control" id="name" required>
-               </div>
-               <div class="form-group">
-                   <label for="email">Correo:</label>
-                   <input type="email" class="form-control" id="email" required>
-               </div>
-               <div class="form-group">
-                   <label for="message">Mensaje:</label>
-                   <textarea class="form-control" id="message" rows="4" required></textarea>
-               </div>
-               <button type="submit" class="btn btn-primary">Enviar</button>
-           </form>
+          
+            <?php if (!empty($errores)): ?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <?php foreach ($errores as $error): ?>
+                            <li><?php echo $error; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
 
-           <div id="confirmation-message" class="alert alert-success mt-3" style="display: none;">
-               <p>¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.</p>
-           </div>
-       </div>
-   </div>
+            
+            <?php if (isset($exito) && $exito): ?>
+                <div class="alert alert-success">
+                    <p>¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.</p>
+                </div>
+            <?php endif; ?>
 
-   <div class="container mt-4 text-center">
-       <p>Para consultas inmediatas, contáctanos al:</p>
-       <p><i class="fas fa-phone-alt"></i> 506-0123-4567</p>
-   </div>
+            <form method="POST" id="contact-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+    </div>
 
-   <?php include 'includes/footer.php'; ?>
+    <div class="container mt-4 text-center">
+        <p>Para consultas inmediatas, contáctanos al:</p>
+        <p><i class="fas fa-phone-alt"></i> 506-0123-4567</p>
+    </div>
 
-   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-   <script>
-       $(document).ready(function() {
-           $('#contact-form').on('submit', function(e) {
-               e.preventDefault();
-               if (this.checkValidity()) {
-                   $('#confirmation-message').show();
-                   this.reset();
-               }
-               $(this).addClass('was-validated');
-           });
-       });
-   </script>
+    <?php include 'includes/footer.php'; ?>
 </body>
 </html>
