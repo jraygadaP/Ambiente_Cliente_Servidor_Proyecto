@@ -1,10 +1,7 @@
 <?php
 require_once 'config/config.php';
 require_once 'includes/auth.php';
-
-// Verificar si el usuario está logueado
-$logueado = isset($_SESSION['user_id']);
-$nombreUsuario = $logueado ? $_SESSION['user_name'] : '';
+require_once 'includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +11,6 @@ $nombreUsuario = $logueado ? $_SESSION['user_name'] : '';
     <title>Inicio - El Financiero</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <style>
         .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/finanzas.jpg');
@@ -44,92 +40,28 @@ $nombreUsuario = $logueado ? $_SESSION['user_name'] : '';
         .feature-card:hover {
             transform: translateY(-5px);
         }
-
-        footer a {
-            color: #ffc107;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
         
         .user-welcome {
             margin-right: 15px;
             color: #2D2E2C;
         }
+
+        .footer {
+    text-align: center;
+    background-color: #2D2E2C;
+    color: #FFFFFF;
+    padding: 20px;
+    margin-top: 50px;
+}
     </style>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">El Financiero</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.php">Inicio</a>
-                    </li>
-                    <?php if ($logueado): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="calculadora_impuestos.php">Calculadora de Impuestos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="calculadora_aguinaldos.php">Calculadora de Aguinaldos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="comparacion_prestamos.php">Comparación de Préstamos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="administrador_presupuesto.php">Administración de Presupuestos</a>
-                    </li>
-                    <?php endif; ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactenos.php">Contáctenos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog.php">Blog</a>
-                    </li>
-                    <?php if ($logueado): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="notificacion.php">
-                            <i class="fas fa-bell"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($nombreUsuario); ?>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="perfil.php">Mi Perfil</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="logout.php">Cerrar Sesión</a>
-                        </div>
-                    </li>
-                    <?php else: ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">
-                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-                        </a>
-                    </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </nav>
-    </header>
 
     <main>
         <div class="hero-section">
             <h1>Bienvenido a El Financiero</h1>
-            <?php if ($logueado): ?>
-                <p>Bienvenido de vuelta, <?php echo htmlspecialchars($nombreUsuario); ?>!</p>
-            <?php else: ?>
-                <p>Tu aliado en la gestión de finanzas personales y empresariales</p>
-            <?php endif; ?>
+            <p>Tu aliado en la gestión de finanzas personales y empresariales</p>
             <a href="#features" class="btn btn-primary btn-lg mt-4">Explorar Funciones</a>
         </div>
 
@@ -139,45 +71,74 @@ $nombreUsuario = $logueado ? $_SESSION['user_name'] : '';
                     <div class="card feature-card p-4">
                         <i class="fas fa-calculator fa-3x mb-3 text-primary"></i>
                         <h4>Calculadoras</h4>
-                        <p>Herramientas para calcular impuestos, aguinaldos y más.</p>
-                        <a href="<?php echo $logueado ? 'calculadora_impuestos.php' : 'login.php'; ?>" 
-                           class="btn btn-outline-primary">
-                            <?php echo $logueado ? 'Ver más' : 'Iniciar sesión para ver más'; ?>
-                        </a>
+                        <p>Descubre nuestras calculadoras de impuestos, aguinaldos y más.</p>
+                        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalCalculadora">Ver más</button>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card feature-card p-4">
                         <i class="fas fa-piggy-bank fa-3x mb-3 text-success"></i>
                         <h4>Presupuestos</h4>
-                        <p>Administra tus finanzas con nuestras herramientas de presupuesto.</p>
-                        <a href="<?php echo $logueado ? 'administrador_presupuesto.php' : 'login.php'; ?>" 
-                           class="btn btn-outline-success">
-                            <?php echo $logueado ? 'Comenzar' : 'Iniciar sesión para comenzar'; ?>
-                        </a>
+                        <p>Administra tus presupuestos de forma simple y rápida.</p>
+                        <button class="btn btn-outline-success" data-toggle="modal" data-target="#modalPresupuestos">Comenzar</button>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card feature-card p-4">
                         <i class="fas fa-chart-line fa-3x mb-3 text-info"></i>
                         <h4>Comparación</h4>
-                        <p>Encuentra los mejores préstamos y opciones financieras.</p>
-                        <a href="<?php echo $logueado ? 'comparacion_prestamos.php' : 'login.php'; ?>" 
-                           class="btn btn-outline-info">
-                            <?php echo $logueado ? 'Descubre más' : 'Iniciar sesión para descubrir'; ?>
-                        </a>
+                        <p>Compara préstamos y opciones financieras.</p>
+                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalComparacion">Descubre más</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> El Financiero. Todos los derechos reservados. 
-           <a href="contactenos.php">Contáctanos</a>.</p>
-    </footer>
+    <div class="modal fade" id="modalCalculadora">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Calculadoras</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    Usa nuestras calculadoras de impuestos, aguinaldos y más para planificar tus finanzas.
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Scripts -->
+    <div class="modal fade" id="modalPresupuestos">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Presupuestos</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    Administra tus presupuestos, controla tus gastos y ahorra con eficiencia.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalComparacion">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Comparación de Préstamos</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    Compara tasas de préstamos y encuentra la opción que mejor se adapte a tus necesidades.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php include 'includes/footer.php'; ?>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

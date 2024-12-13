@@ -1,11 +1,7 @@
 <?php
 require_once 'config/config.php';
 require_once 'includes/auth.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
+require_once 'includes/header.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errores = [];
@@ -91,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <?php include 'includes/header.php'; ?>
+
 
     <div class="container">
         <div class="card">

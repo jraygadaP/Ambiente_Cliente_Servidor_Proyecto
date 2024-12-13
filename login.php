@@ -1,6 +1,8 @@
 <?php
 require_once 'config/config.php';
 require_once 'includes/auth.php';
+require_once 'includes/init.php';
+require_once 'includes/header.php';
 
 $error = '';
 $success = '';
@@ -31,14 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background-color: #e7e7e7ec;
             color: #2D2E2C;
             font-family: 'Arial', sans-serif;
-        }
-
-        .navbar a {
-            color: #2D2E2C !important;
-        }
-
-        .navbar-brand {
-            font-weight: bold;
         }
 
         .login-container {

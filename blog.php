@@ -1,11 +1,12 @@
 <?php
 require_once 'config/config.php';
 require_once 'includes/auth.php';
+require_once 'includes/header.php';
 
-if (!isset($_SESSION['user_id'])) {
+/*if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
-}
+}*/
 
 $posts = [
     [
@@ -115,7 +116,6 @@ $posts = [
     </style>
 </head>
 <body>
-   <?php include 'includes/header.php'; ?>
 
    <div class="container mt-5">
        <h2 class="blog-title text-center">Nuestro Blog</h2>

@@ -1,11 +1,7 @@
 <?php
 require_once 'config/config.php';
 require_once 'includes/auth.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
+require_once 'includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,22 +13,9 @@ if (!isset($_SESSION['user_id'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #ffffff8a;
+            background-color: #e7e7e7ec;
             color: #2D2E2C;
             font-family: 'Arial', sans-serif;
-        }
-
-        .navbar {
-            background-color: #9EC4BB;
-        }
-
-        .navbar a {
-            color: #2D2E2C !important;
-            font-weight: bold;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
         }
 
         .container {
@@ -135,7 +118,6 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-   <?php include 'includes/header.php'; ?>
 
    <div class="container">
        <div class="title-box">

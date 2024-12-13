@@ -1,11 +1,7 @@
 <?php
 require_once 'config/config.php';
 require_once 'includes/auth.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
+require_once 'includes/header.php';
 
 $notificaciones = [
     ['id' => 1, 'texto' => 'Se ha actualizado la política de privacidad.', 'icono' => 'fas fa-info-circle', 'leida' => false],
@@ -21,6 +17,11 @@ $notificaciones = [
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+            body {
+            background-color: #e7e7e7ec;
+            color: #2D2E2C;
+            font-family: 'Arial', sans-serif;
+        }
         .container { margin-top: 30px; }
         .card {
             background-color: #ffffff;
@@ -81,7 +82,6 @@ $notificaciones = [
 </head>
 
 <body>
-   <?php include 'includes/header.php'; ?>
 
    <div class="container">
        <div class="card">

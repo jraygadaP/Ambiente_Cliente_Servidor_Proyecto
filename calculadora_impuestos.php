@@ -1,12 +1,8 @@
 <?php
 require_once 'config/config.php';
 require_once 'includes/auth.php';
+require_once 'includes/header.php';
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -153,7 +149,6 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <?php include 'includes/header.php'; ?>
 
     <div class="container">
         <div class="main-card">

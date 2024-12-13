@@ -1,31 +1,41 @@
 <?php
+// Requiere los archivos de configuración
 require_once 'config/config.php';
 require_once 'includes/auth.php';
-
+require_once 'includes/init.php';
+require_once 'includes/header.php';
 $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $auth = new Auth();
     
-    $nombre = $_POST['nombre'] ?? '';
-    $apellido = $_POST['apellido'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $telefono = $_POST['telefono'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $confirm_password = $_POST['confirm-password'] ?? '';
+    // Capturar y limpiar los datos
+    $nombre = trim($_POST['nombre'] ?? '');
+    $apellido = trim($_POST['apellido'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $telefono = trim($_POST['telefono'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    $confirm_password = trim($_POST['confirm-password'] ?? '');
 
-    if ($password !== $confirm_password) {
-        $error = 'Las contraseñas no coinciden';
+    // Validar los datos
+    if (empty($nombre) || empty($apellido) || empty($email) || empty($password) || empty($confirm_password)) {
+        $error = 'Todos los campos son obligatorios.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'El correo electrónico no es válido.';
+    } elseif ($password !== $confirm_password) {
+        $error = 'Las contraseñas no coinciden.';
     } else {
+        // Intentar registrar al usuario
         try {
-            if ($auth->registrar($nombre, $apellido, $email, $telefono, $password)) {
+            $registrado = $auth->registrar($nombre, $apellido, $email, $telefono, $password);
+            if ($registrado) {
                 $success = 'Registro exitoso. Por favor, inicia sesión.';
             } else {
-                $error = 'Error al registrar el usuario';
+                $error = 'Error al registrar el usuario. Verifica la base de datos.';
             }
         } catch (Exception $e) {
-            $error = 'El correo electrónico ya está registrado';
+            $error = 'El correo electrónico ya está registrado o hubo un problema con la base de datos.';
         }
     }
 }
@@ -35,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Financiero</title>
+    <title>El Financiero - Registro</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
