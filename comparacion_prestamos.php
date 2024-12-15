@@ -11,6 +11,11 @@ require_once 'includes/header.php';
     <title>Comparación de Préstamos</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <style>
         body {
             background-color: #e7e7e7ec;
@@ -119,39 +124,108 @@ require_once 'includes/header.php';
 
 <body>
 
-   <div class="container">
-       <div class="title-box">
-           <h2>Comparación de Préstamos</h2>
-       </div>
+<div id="loanCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="loan-card text-center p-4" style="border: 2px solid #9EC4BB; border-radius: 15px;">
+                <h2 style="color: #2D2E2C; font-weight: bold; font-size: 1.8rem;">Préstamo A</h2>
+                <div class="loan-details mt-3">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fas fa-coins fa-3x" style="color: #EED7C5;"></i>
+                        <div class="ml-3">
+                            <h5>Monto</h5>
+                            <p>₡10,000,000</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <i class="fas fa-percent fa-3x" style="color: #9EC4BB;"></i>
+                        <div class="ml-3">
+                            <h5>Tasa de interés</h5>
+                            <p>5% anual</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <i class="fas fa-calendar-alt fa-3x" style="color: #EED7C5;"></i>
+                        <div class="ml-3">
+                            <h5>Plazo</h5>
+                            <p>5 años</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <i class="fas fa-money-bill-wave fa-3x" style="color: #9EC4BB;"></i>
+                        <div class="ml-3">
+                            <h5>Cuota mensual</h5>
+                            <p>₡188,000</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <i class="fas fa-calculator fa-3x" style="color: #EED7C5;"></i>
+                        <div class="ml-3">
+                            <h5>Costo total</h5>
+                            <p>₡11,280,000</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-apply mt-4" style="font-size: 1.2rem;">Solicitar Préstamo</button>
+            </div>
+        </div>
+        <!-- Repite para los demás préstamos -->
+        <div class="carousel-item">
+            <div class="loan-card text-center p-4" style="border: 2px solid #9EC4BB; border-radius: 15px;">
+                <h2 style="color: #2D2E2C; font-weight: bold; font-size: 1.8rem;">Préstamo B</h2>
+                <div class="loan-details mt-3">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fas fa-coins fa-3x" style="color: #EED7C5;"></i>
+                        <div class="ml-3">
+                            <h5>Monto</h5>
+                            <p>₡10,000,000</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <i class="fas fa-percent fa-3x" style="color: #9EC4BB;"></i>
+                        <div class="ml-3">
+                            <h5>Tasa de interés</h5>
+                            <p>4% anual</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <i class="fas fa-calendar-alt fa-3x" style="color: #EED7C5;"></i>
+                        <div class="ml-3">
+                            <h5>Plazo</h5>
+                            <p>3 años</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <i class="fas fa-money-bill-wave fa-3x" style="color: #9EC4BB;"></i>
+                        <div class="ml-3">
+                            <h5>Cuota mensual</h5>
+                            <p>₡295,000</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                        <i class="fas fa-calculator fa-3x" style="color: #EED7C5;"></i>
+                        <div class="ml-3">
+                            <h5>Costo total</h5>
+                            <p>₡10,620,000</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-apply mt-4" style="font-size: 1.2rem;">Solicitar Préstamo</button>
+            </div>
+        </div>
+        <!-- Añade más préstamos aquí -->
+    </div>
+    <a class="carousel-control-prev" href="#loanCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#loanCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+    </a>
+</div>
 
-       <div class="row">
-           <div class="col-md-6">
-               <div class="loan-card">
-                   <h2>Préstamo A</h2>
-                   <ul class="loan-details list-unstyled">
-                       <li><strong>Monto:</strong> ₡10,000,000</li>
-                       <li><strong>Tasa de interés:</strong> 5% anual</li>
-                       <li><strong>Plazo:</strong> 5 años</li>
-                       <li><strong>Cuota mensual:</strong> ₡188,000</li>
-                       <li><strong>Costo total:</strong> ₡11,280,000</li>
-                   </ul>
-                   <button class="btn-apply">Solicitar Préstamo</button>
-               </div>
-           </div>
-           <div class="col-md-6">
-               <div class="loan-card">
-                   <h2>Préstamo B</h2>
-                   <ul class="loan-details list-unstyled">
-                       <li><strong>Monto:</strong> ₡10,000,000</li>
-                       <li><strong>Tasa de interés:</strong> 4% anual</li>
-                       <li><strong>Plazo:</strong> 3 años</li>
-                       <li><strong>Cuota mensual:</strong> ₡295,000</li>
-                       <li><strong>Costo total:</strong> ₡10,620,000</li>
-                   </ul>
-                   <button class="btn-apply">Solicitar Préstamo</button>
-               </div>
-           </div>
-       </div>
+
 
        <div class="comparison-table">
            <h3 class="text-center">Tabla Comparativa de Préstamos</h3>
@@ -266,5 +340,18 @@ require_once 'includes/header.php';
            updateChart(cuotaMensual);
        });
    </script>
+
+<script>
+    // Función para mostrar el mensaje
+    function showLoanMessage() {
+        alert("Gracias por seleccionar el préstamo, se le enviará más información a su correo electrónico.");
+    }
+
+    // Seleccionar los botones y agregar el evento click
+    document.querySelectorAll('.btn-apply').forEach(button => {
+        button.addEventListener('click', showLoanMessage);
+    });
+</script>
+
 </body>
 </html>
