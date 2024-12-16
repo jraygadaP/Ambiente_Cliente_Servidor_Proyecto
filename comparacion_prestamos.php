@@ -1,7 +1,42 @@
 <?php
 require_once 'config/config.php';
+require_once 'config/database.php';
 require_once 'includes/auth.php';
 require_once 'includes/header.php';
+
+// Conexión a la base de datos utilizando la clase Database
+$db = Database::getInstance();
+$conexion = $db->getConnection();
+
+// Consultar los préstamos desde la base de datos
+$prestamos = [];
+try {
+    $stmt = $conexion->query("SELECT * FROM prestamos");
+    $prestamos = $stmt->fetch_all(MYSQLI_ASSOC);
+} catch (Exception $e) {
+    echo "Error al consultar los préstamos: " . $e->getMessage();
+}
+
+// Modificar préstamo si se envía el formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['loanID'];
+    $monto = $_POST['loanAmount'];
+    $tasa = $_POST['interestRate'];
+    $plazo = $_POST['loanTerm'];
+
+    $cuota = $monto * ($tasa / 100 / 12) / (1 - pow(1 + $tasa / 100 / 12, -$plazo * 12));
+    $costoTotal = $cuota * $plazo * 12;
+
+    try {
+        $stmt = $conexion->prepare("UPDATE prestamos SET Monto = ?, Tasa_de_Interes = ?, Plazo = ?, Cuota = ?, Costo = ? WHERE ID_Prestamo = ?");
+        $stmt->bind_param("ddiddi", $monto, $tasa, $plazo, $cuota, $costoTotal, $id);
+        $stmt->execute();
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit;
+    } catch (Exception $e) {
+        echo "Error al modificar el préstamo: " . $e->getMessage();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,347 +46,290 @@ require_once 'includes/header.php';
     <title>Comparación de Préstamos</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <style>
-        body {
-            background-color: #e7e7e7ec;
-            color: #2D2E2C;
-            font-family: 'Arial', sans-serif;
-        }
+/* Estilo general */
+body { background-color:#e7e7e7ec; color: #2D2E2C; font-family: 'Arial', sans-serif; }
 
-        .container {
-            margin-top: 30px;
-        }
+/* Estilo del carrusel */
+#loanCarousel .loan-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+#loanCarousel .loan-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
 
-        .title-box {
-            background-color: #9EC4BB;
-            color: #FFFFFF;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+/* Botón de solicitar préstamo */
+.btn-apply {
+    background-color: #28a745;
+    color: #ffffff;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-apply:hover {
+    background-color: #218838;
+    transform: scale(1.1);
+}
 
-        .loan-card {
-            background-color: #FFFFFF;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 20px;
-        }
+/* Estilo de la tabla comparativa */
+.table {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-        .loan-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-        }
+/* Estilo del formulario */
+.form-section {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+.form-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+.form-section .form-group label {
+    font-weight: bold;
+    color: #495057;
+}
+.form-section .btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.form-section .btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
 
-        .loan-card h2 {
-            color: #2D2E2C;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+.explanation-box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+}
 
-        .loan-details li {
-            margin: 0.5rem 0;
-            font-size: 1rem;
-        }
+/* Estilo para la caja de comparación */
+.comparison-box {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+}
 
-        .btn-apply {
-            background-color: #9EC4BB;
-            color: #2D2E2C;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            text-align: center;
-        }
+.comparison-box h4 {
+    text-align: center;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
 
-        .btn-apply:hover {
-            background-color: #EED7C5;
-        }
+.comparison-box ul {
+    list-style: none;
+    padding: 0;
+}
 
-        .comparison-table {
-            margin-top: 30px;
-            background-color: #FFFFFF;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-        }
+.comparison-box ul li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: relative;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-        .form-section {
-            margin-top: 40px;
-            background-color: #9EC4BB;
-            padding: 20px;
-            border-radius: 10px;
-            color: #FFFFFF;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-        }
+.comparison-box ul li:hover {
+    background-color: #e7f3ff;
+    transform: translateY(-2px);
+}
 
-        .form-section input,
-        .form-section select {
-            margin-bottom: 15px;
-        }
+.comparison-box strong {
+    display: block;
+    margin-top: 20px;
+    font-size: 18px;
+    color:rgb(133, 172, 163);
+    text-align: center;
+    font-weight: bold;
+}
 
-        .chart {
-            margin-top: 30px;
-            text-align: center;
-        }
+/* Responsividad */
+@media (max-width: 768px) {
+    #loanCarousel .loan-card {
+        padding: 15px;
+    }
+    .form-section {
+        padding: 15px;
+    }
+}
+</style>
 
-        .footer {
-            text-align: center;
-            background-color: #2D2E2C;
-            color: #FFFFFF;
-            padding: 20px;
-            margin-top: 30px;
-        }
-
-        .footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-    </style>
 </head>
 
 <body>
+<div class="container mt-5">
 
-<div id="loanCarousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <div class="loan-card text-center p-4" style="border: 2px solid #9EC4BB; border-radius: 15px;">
-                <h2 style="color: #2D2E2C; font-weight: bold; font-size: 1.8rem;">Préstamo A</h2>
-                <div class="loan-details mt-3">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <i class="fas fa-coins fa-3x" style="color: #EED7C5;"></i>
-                        <div class="ml-3">
-                            <h5>Monto</h5>
-                            <p>₡10,000,000</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center mt-3">
-                        <i class="fas fa-percent fa-3x" style="color: #9EC4BB;"></i>
-                        <div class="ml-3">
-                            <h5>Tasa de interés</h5>
-                            <p>5% anual</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center mt-3">
-                        <i class="fas fa-calendar-alt fa-3x" style="color: #EED7C5;"></i>
-                        <div class="ml-3">
-                            <h5>Plazo</h5>
-                            <p>5 años</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center mt-3">
-                        <i class="fas fa-money-bill-wave fa-3x" style="color: #9EC4BB;"></i>
-                        <div class="ml-3">
-                            <h5>Cuota mensual</h5>
-                            <p>₡188,000</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center mt-3">
-                        <i class="fas fa-calculator fa-3x" style="color: #EED7C5;"></i>
-                        <div class="ml-3">
-                            <h5>Costo total</h5>
-                            <p>₡11,280,000</p>
-                        </div>
+    <!-- Carrusel de préstamos -->
+    <div id="loanCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <?php foreach ($prestamos as $index => $prestamo): ?>
+                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                    <div class="loan-card text-center p-4" style="border: 2px solid #9EC4BB; border-radius: 15px;">
+                        <h2>Préstamo ID <?= htmlspecialchars($prestamo['ID_Prestamo']) ?></h2>
+                        <p>Monto: ₡<?= number_format($prestamo['Monto'], 2) ?></p>
+                        <p>Tasa de interés: <?= htmlspecialchars($prestamo['Tasa_de_Interes']) ?>% anual</p>
+                        <p>Plazo: <?= htmlspecialchars($prestamo['Plazo']) ?> años</p>
+                        <p>Cuota mensual: ₡<?= number_format($prestamo['Cuota'], 2) ?></p>
+                        <p>Costo total: ₡<?= number_format($prestamo['Costo'], 2) ?></p>
                     </div>
                 </div>
-                <button class="btn-apply mt-4" style="font-size: 1.2rem;">Solicitar Préstamo</button>
-            </div>
+            <?php endforeach; ?>
         </div>
-        <!-- Repite para los demás préstamos -->
-        <div class="carousel-item">
-            <div class="loan-card text-center p-4" style="border: 2px solid #9EC4BB; border-radius: 15px;">
-                <h2 style="color: #2D2E2C; font-weight: bold; font-size: 1.8rem;">Préstamo B</h2>
-                <div class="loan-details mt-3">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <i class="fas fa-coins fa-3x" style="color: #EED7C5;"></i>
-                        <div class="ml-3">
-                            <h5>Monto</h5>
-                            <p>₡10,000,000</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center mt-3">
-                        <i class="fas fa-percent fa-3x" style="color: #9EC4BB;"></i>
-                        <div class="ml-3">
-                            <h5>Tasa de interés</h5>
-                            <p>4% anual</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center mt-3">
-                        <i class="fas fa-calendar-alt fa-3x" style="color: #EED7C5;"></i>
-                        <div class="ml-3">
-                            <h5>Plazo</h5>
-                            <p>3 años</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center mt-3">
-                        <i class="fas fa-money-bill-wave fa-3x" style="color: #9EC4BB;"></i>
-                        <div class="ml-3">
-                            <h5>Cuota mensual</h5>
-                            <p>₡295,000</p>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center mt-3">
-                        <i class="fas fa-calculator fa-3x" style="color: #EED7C5;"></i>
-                        <div class="ml-3">
-                            <h5>Costo total</h5>
-                            <p>₡10,620,000</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn-apply mt-4" style="font-size: 1.2rem;">Solicitar Préstamo</button>
-            </div>
-        </div>
-        <!-- Añade más préstamos aquí -->
     </div>
-    <a class="carousel-control-prev" href="#loanCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Anterior</span>
-    </a>
-    <a class="carousel-control-next" href="#loanCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Siguiente</span>
-    </a>
+
+    <!-- Tabla Comparativa de Préstamos -->
+    <div class="comparison-table mt-5">
+        <h3>Tabla Comparativa de Préstamos</h3>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>ID Préstamo</th>
+                    <th>Monto</th>
+                    <th>Tasa de Interés</th>
+                    <th>Plazo</th>
+                    <th>Cuota Mensual</th>
+                    <th>Costo Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($prestamos as $prestamo): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($prestamo['ID_Prestamo']) ?></td>
+                        <td>₡<?= number_format($prestamo['Monto'], 2) ?></td>
+                        <td><?= htmlspecialchars($prestamo['Tasa_de_Interes']) ?>%</td>
+                        <td><?= htmlspecialchars($prestamo['Plazo']) ?> años</td>
+                        <td>₡<?= number_format($prestamo['Cuota'], 2) ?></td>
+                        <td>₡<?= number_format($prestamo['Costo'], 2) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Explicación del TIN -->
+    <div class="explanation-box">
+        <h4>¿Qué es la TIN (Tasa de Interés Nominal)?</h4>
+        <p>La Tasa de Interés Nominal (TIN) es la tasa que se aplica al monto inicial de un préstamo para calcular los intereses. Se expresa como un porcentaje anual, pero no tiene en cuenta los costos adicionales, como comisiones o gastos de apertura.</p>
+    </div>
+
+    <!-- Comparación de préstamos -->
+    <div class="comparison-box">
+        <h4>Comparación entre Préstamos</h4>
+        <ul>
+            <?php 
+                $mejorPrestamo = null;
+                foreach ($prestamos as $prestamo) {
+                    $monto = $prestamo['Monto'];
+                    $tasa = $prestamo['Tasa_de_Interes'];
+                    $plazo = $prestamo['Plazo'];
+                    $cuota = $prestamo['Cuota'];
+                    $costoTotal = $prestamo['Costo'];
+                    
+                    $mensaje = "El préstamo con ID {$prestamo['ID_Prestamo']} tiene una tasa de interés de {$tasa}%, 
+                    con un monto de ₡" . number_format($monto, 2) . 
+                    ", una cuota mensual de ₡" . number_format($cuota, 2) . 
+                    " y un costo total de ₡" . number_format($costoTotal, 2) . ".";
+                    
+                    echo "<li>$mensaje</li>";
+
+                    if (is_null($mejorPrestamo) || $costoTotal < $mejorPrestamo['Costo']) {
+                        $mejorPrestamo = $prestamo;
+                    }
+                }
+                
+                if ($mejorPrestamo) {
+                    echo "<br><strong>El mejor préstamo es el de ID {$mejorPrestamo['ID_Prestamo']} con un costo total de ₡" 
+                         . number_format($mejorPrestamo['Costo'], 2) . ".</strong>";
+                }
+            ?>
+        </ul>
+    </div>
+
+    <!-- Formulario para modificar préstamos -->
+    <div class="form-section mt-5">
+        <h3>Modificar Préstamo</h3>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="loanID">ID del Préstamo:</label>
+                <select name="loanID" class="form-control" required>
+                    <?php foreach ($prestamos as $prestamo): ?>
+                        <option value="<?= htmlspecialchars($prestamo['ID_Prestamo']) ?>">ID <?= htmlspecialchars($prestamo['ID_Prestamo']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="loanAmount">Monto del Préstamo:</label>
+                <input type="number" name="loanAmount" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="interestRate">Tasa de Interés (%):</label>
+                <input type="number" name="interestRate" step="0.01" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="loanTerm">Plazo (años):</label>
+                <select name="loanTerm" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Modificar Préstamo</button>
+        </form>
+    </div>
 </div>
-
-
-
-       <div class="comparison-table">
-           <h3 class="text-center">Tabla Comparativa de Préstamos</h3>
-           <table class="table table-bordered text-center">
-               <thead class="thead-light">
-                   <tr>
-                       <th>Préstamo</th>
-                       <th>Monto</th>
-                       <th>Tasa de Interés</th>
-                       <th>Plazo</th>
-                       <th>Cuota Mensual</th>
-                       <th>Costo Total</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   <tr>
-                       <td>A</td>
-                       <td>₡10,000,000</td>
-                       <td>5%</td>
-                       <td>5 años</td>
-                       <td>₡188,000</td>
-                       <td>₡11,280,000</td>
-                   </tr>
-                   <tr>
-                       <td>B</td>
-                       <td>₡10,000,000</td>
-                       <td>4%</td>
-                       <td>3 años</td>
-                       <td>₡295,000</td>
-                       <td>₡10,620,000</td>
-                   </tr>
-               </tbody>
-           </table>
-       </div>
-
-       <div class="form-section">
-           <h3>Personaliza tu Préstamo</h3>
-           <form id="loanForm">
-               <div class="form-group">
-                   <label for="loanAmount">Monto del Préstamo:</label>
-                   <input type="number" class="form-control" id="loanAmount" required>
-               </div>
-               <div class="form-group">
-                   <label for="interestRate">Tasa de Interés (%):</label>
-                   <input type="number" step="0.01" class="form-control" id="interestRate" required>
-               </div>
-               <div class="form-group">
-                   <label for="loanTerm">Plazo (años):</label>
-                   <select class="form-control" id="loanTerm" required>
-                       <option value="1">1</option>
-                       <option value="2">2</option>
-                       <option value="3">3</option>
-                       <option value="4">4</option>
-                       <option value="5">5</option>
-                   </select>
-               </div>
-               <button type="submit" class="btn btn-light">Calcular</button>
-           </form>
-       </div>
-
-       <div class="chart">
-           <h3>Distribución de Cuotas</h3>
-           <canvas id="loanChart"></canvas>
-       </div>
-   </div>
-
-   <?php include 'includes/footer.php'; ?>
-
-   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <script>
-       let myChart = new Chart(document.getElementById('loanChart').getContext('2d'), {
-           type: 'bar',
-           data: {
-               labels: ['A', 'B'],
-               datasets: [{
-                   label: 'Cuotas Mensuales',
-                   data: [188000, 295000],
-                   backgroundColor: ['#9EC4BB', '#EED7C5']
-               }]
-           },
-           options: {
-               responsive: true,
-               scales: {
-                   y: {
-                       beginAtZero: true
-                   }
-               }
-           }
-       });
-
-       function updateChart(nuevaCuota) {
-           myChart.data.labels = ['Préstamo Calculado'];
-           myChart.data.datasets[0].data = [nuevaCuota];
-           myChart.update();
-       }
-
-       document.getElementById('loanForm').addEventListener('submit', function(e) {
-           e.preventDefault();
-           
-           const monto = parseFloat(document.getElementById('loanAmount').value);
-           const tasaAnual = parseFloat(document.getElementById('interestRate').value);
-           const plazo = parseInt(document.getElementById('loanTerm').value);
-
-           const tasaMensual = (tasaAnual / 100) / 12;
-           const numeroPagos = plazo * 12;
-           const cuotaMensual = monto * (tasaMensual * Math.pow(1 + tasaMensual, numeroPagos)) 
-                               / (Math.pow(1 + tasaMensual, numeroPagos) - 1);
-
-           updateChart(cuotaMensual);
-       });
-   </script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Función para mostrar el mensaje
-    function showLoanMessage() {
-        alert("Gracias por seleccionar el préstamo, se le enviará más información a su correo electrónico.");
-    }
-
-    // Seleccionar los botones y agregar el evento click
-    document.querySelectorAll('.btn-apply').forEach(button => {
-        button.addEventListener('click', showLoanMessage);
-    });
-</script>
-
+        document.querySelectorAll('.btn-apply').forEach(button => {
+            button.addEventListener('click', function() {
+                alert("Gracias por seleccionar el préstamo, se le enviará más información a su correo electrónico.");
+            });
+        });
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
