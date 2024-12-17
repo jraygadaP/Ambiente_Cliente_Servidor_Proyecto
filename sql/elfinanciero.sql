@@ -1,0 +1,50 @@
+CREATE DATABASE IF NOT EXISTS elfinanciero;
+USE elfinanciero;
+
+CREATE TABLE notificaciones (
+    ID_Notificacion INT(11) NOT NULL AUTO_INCREMENT,
+    Descripcion TEXT NULL DEFAULT NULL,
+    Leida TINYINT(1) NULL DEFAULT 0,
+    PRIMARY KEY (ID_Notificacion)
+);
+
+CREATE TABLE prestamos (
+    ID_Prestamo INT(11) NOT NULL AUTO_INCREMENT,
+    Tasa_de_Interes DECIMAL(5,2) NULL DEFAULT NULL,
+    Monto DECIMAL(15,2) NULL DEFAULT NULL,
+    Plazo INT(11) NULL DEFAULT NULL,
+    Cuota DECIMAL(15,2) NULL DEFAULT NULL,
+    Costo DECIMAL(15,2) NULL DEFAULT NULL,
+    PRIMARY KEY (ID_Prestamo)
+);
+
+CREATE TABLE presupuesto (
+    ID_Presupuesto INT(11) NOT NULL AUTO_INCREMENT,
+    ID_Usuario INT(11) NULL DEFAULT NULL,
+    Ingreso DECIMAL(10,2) NULL DEFAULT NULL,
+    Descripcion_Ingreso VARCHAR(255) NULL DEFAULT NULL,
+    Gastos DECIMAL(10,2) NULL DEFAULT NULL,
+    Descripcion_Gasto VARCHAR(255) NULL DEFAULT NULL,
+    PRIMARY KEY (ID_Presupuesto)
+);
+
+CREATE TABLE roles (
+    ID_Rol INT(11) NOT NULL AUTO_INCREMENT,
+    ID_Usuario INT(11) NULL DEFAULT NULL,
+    Descripcion VARCHAR(50) NULL DEFAULT NULL,
+    PRIMARY KEY (ID_Rol)
+);
+
+CREATE TABLE usuarios (
+    ID_Usuario INT(11) NOT NULL AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Correo_Electronico VARCHAR(100) NOT NULL,
+    Numero_de_Telefono VARCHAR(20) NULL DEFAULT NULL,
+    Contrasena VARCHAR(255) NOT NULL,
+    PRIMARY KEY (ID_Usuario)
+);
+
+INSERT INTO prestamos (Tasa_de_Interes, Monto, Plazo, Cuota, Costo) VALUES 
+(10.50, 15000.00, 12, 1350.50, 16206.00), 
+(12.75, 20000.00, 24, 978.25, 23478.00);
